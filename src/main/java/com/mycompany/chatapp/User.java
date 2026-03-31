@@ -11,6 +11,7 @@ package com.mycompany.chatapp;
 public class User {
     private String username;
     private String password;
+    private String cellPhoneNumber;
     
     public boolean setUsername(String username) {
         if (username.contains("_") && username.length() <= 5) {
@@ -45,6 +46,20 @@ public class User {
         }
     }
     
+    // Reference: W3Schools - Java Regular Expressions
+    // Source: https://www.w3schools.com/java/java_regex.asp
+    // Date accessed: 31 March 2026
+    public boolean setCellPhoneNumber(String cellPhoneNumber) {
+        if (cellPhoneNumber.matches("\\+27\\d{9}")) {
+            this.cellPhoneNumber = cellPhoneNumber;
+            System.out.println("Cellphone number successfully added");
+            return true;
+        } else {
+            System.out.println("Cellphone number incorrectly formatted or does not contain international code");
+            return false;
+        }
+    }
+    
     public String getUsername() {
        return username;
     }
@@ -52,4 +67,8 @@ public class User {
     public String getPassword() {
         return password;
     }
-}
+    public String getCellPhoneNumber() {
+        return cellPhoneNumber;
+    }
+    }
+

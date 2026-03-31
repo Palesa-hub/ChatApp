@@ -25,5 +25,9 @@ public class ChatApp {
         System.out.println("Please enter a password: ");
         String passwordInput = scanner.nextLine();
         user.setPassword(passwordInput);
+        
+        System.out.println("Please enter your cellphone number (e.g. +27876543211)");
+        String cellPhoneInput = scanner.nextLine();
+        user.setCellPhoneNumber(cellPhoneInput);
     }
 }
