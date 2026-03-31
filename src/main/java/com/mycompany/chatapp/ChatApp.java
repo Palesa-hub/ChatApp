@@ -21,5 +21,9 @@ public class ChatApp {
         String usernameInput = scanner.nextLine();
         
         user.setUsername(usernameInput);
+        
+        System.out.println("Please enter a password: ");
+        String passwordInput = scanner.nextLine();
+        user.setPassword(passwordInput);
     }
 }
