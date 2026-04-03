@@ -12,6 +12,8 @@ public class User {
     private String username;
     private String password;
     private String cellPhoneNumber;
+    private String firstName;
+    private String lastName;
     
     public boolean setUsername(String username) {
         if (username.contains("_") && username.length() <= 5) {
@@ -60,6 +62,21 @@ public class User {
         }
     }
     
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public boolean login(String username, String password) {
+        if (this.username.equals(username) && this.password.equals(password)) {
+            System.out.println("Welcome " + firstName + ", " + lastName + "it is great to see you again.");
+            return true;
+        } else {
+            System.out.println("Username or password incorrect, please try again.");
+            return false;
+        }
+    }
     public String getUsername() {
        return username;
     }
@@ -69,6 +86,12 @@ public class User {
     }
     public String getCellPhoneNumber() {
         return cellPhoneNumber;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
     }
     }
 

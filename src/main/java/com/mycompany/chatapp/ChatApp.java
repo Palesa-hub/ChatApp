@@ -17,9 +17,18 @@ public class ChatApp {
         User user = new User();
         
         System.out.println("=== Welcome to the Chat App ===");
+        System.out.println("=== Register ===");
+        
+        System.out.println("Please enter your first name: ");
+        String firstNameInput = scanner.nextLine();
+        user.setFirstName(firstNameInput);
+        
+        System.out.println("Please enter your last name: ");
+        String lastNameInput = scanner.nextLine();
+        user.setLastName(lastNameInput);
+        
         System.out.println("Please enter a username: ");
         String usernameInput = scanner.nextLine();
-        
         user.setUsername(usernameInput);
         
         System.out.println("Please enter a password: ");
@@ -29,5 +38,14 @@ public class ChatApp {
         System.out.println("Please enter your cellphone number (e.g. +27876543211)");
         String cellPhoneInput = scanner.nextLine();
         user.setCellPhoneNumber(cellPhoneInput);
+        
+        System.out.println("\n=== Login ===");
+        System.out.println("Please enter your username to login: ");
+        String loginUsername = scanner.next();
+        
+        System.out.println("Please enter your password to login: ");
+        String loginPassword = scanner.next();
+        
+        user.login(loginUsername, loginPassword);
     }
 }
