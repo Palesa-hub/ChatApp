@@ -19,32 +19,35 @@ public class ChatApp {
         System.out.println("=== Welcome to the Chat App ===");
         System.out.println("=== Register ===");
         
+        // Collect registration details
         System.out.println("Please enter your first name: ");
-        String firstNameInput = scanner.nextLine();
-        user.setFirstName(firstNameInput);
+        String firstName = scanner.nextLine();
         
         System.out.println("Please enter your last name: ");
-        String lastNameInput = scanner.nextLine();
-        user.setLastName(lastNameInput);
+        String lastName = scanner.nextLine();
         
         System.out.println("Please enter a username: ");
-        String usernameInput = scanner.nextLine();
-        user.setUsername(usernameInput);
+        String username = scanner.nextLine();
         
         System.out.println("Please enter a password: ");
-        String passwordInput = scanner.nextLine();
-        user.setPassword(passwordInput);
+        String password = scanner.nextLine();
         
         System.out.println("Please enter your cellphone number (e.g. +27876543211)");
-        String cellPhoneInput = scanner.nextLine();
-        user.setCellPhoneNumber(cellPhoneInput);
+        String cellPhone = scanner.nextLine();
         
+        // Create login object and register
+        Login login = new Login(firstName, lastName, username, password, cellPhone);
+        System.out.println(login.registerUser());
+        
+        // Login section
         System.out.println("\n=== Login ===");
         System.out.println("Please enter your username to login: ");
-        String loginUsername = scanner.next();
+        String loginUsername = scanner.nextLine();
         
         System.out.println("Please enter your password to login: ");
-        String loginPassword = scanner.next();
+        String loginPassword = scanner.nextLine();
+        
+        System.out.println(login.returnLoginStatus(loginUsername, loginPassword));
         
         user.login(loginUsername, loginPassword);
     }
