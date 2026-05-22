@@ -55,7 +55,33 @@ public class ChatApp {
         
         // Only show messaging features if login is successful
         if (loginStatus.contains("great to see you")) {
-                System.out.println("\nWelcome to QuickCchat.");
+                System.out.println("\nWelcome to QuickChat.");
+                
+                boolean running = true;
+                while (running) {
+                    System.out.println("\nPlease choose an option:");
+                    System.out.println("1. Send messages");
+                    System.out.println("2. Show recently sent messages:");
+                    System.out.println("3. Quit");
+                    
+                    String choice = scanner.nextLine();
+                    
+                    switch (choice) {
+                        case "1":
+                            System.out.println("Sendong messages coming soon...");
+                            break;
+                        case "2":
+                            System.out.println("Coming soon");
+                            break;
+                        case "3":
+                            System.out.println("Thank you for using QuickChat. Goodbye!");
+                            running = false;
+                            break;
+                        default:
+                            System.out.println("Invalid option, please try again.");
+                            break;
+                    }
+                }
             } else {
                 System.out.println("Login failed. Please restart and try again.");
             }
