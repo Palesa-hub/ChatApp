@@ -55,7 +55,7 @@ public class ChatApp {
         
         // Only show messaging features if login is successful
         if (loginStatus.contains("great to see you")) {
-                System.out.println("\nLogin successful! Messaging features loading...");
+                System.out.println("\nWelcome to QuickCchat.");
             } else {
                 System.out.println("Login failed. Please restart and try again.");
             }
