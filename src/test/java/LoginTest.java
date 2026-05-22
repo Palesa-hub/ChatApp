@@ -27,7 +27,7 @@ public class LoginTest {
         assertFalse(login.checkUsername(),
         "Username should be illegitimate as it is longer than five characters and does not have an underscore.");
     }
-    // Test 3 - Password does not meet complexity requirements
+    // Test 3 - Password does meet complexity requirements
     @Test
     public void testPasswordMeetsComplexity() {
         Login login = new Login("Lorem", "Ipsum", "kyl_1", "Ch&&sec@ke99!", "+27987654321");

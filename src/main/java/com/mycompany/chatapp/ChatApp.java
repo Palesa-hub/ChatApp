@@ -14,7 +14,6 @@ public class ChatApp {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        User user = new User();
         
         System.out.println("=== Welcome to the Chat App ===");
         System.out.println("=== Register ===");
@@ -37,7 +36,11 @@ public class ChatApp {
         
         // Create login object and register
         Login login = new Login(firstName, lastName, username, password, cellPhone);
-        System.out.println(login.registerUser());
+        String registrationResult = login.registerUser();
+        System.out.println(registrationResult);
+        
+        // Only allow login if registration is successful
+        if (registrationResult.contains("successfully")) {
         
         // Login section
         System.out.println("\n=== Login ===");
@@ -47,8 +50,17 @@ public class ChatApp {
         System.out.println("Please enter your password to login: ");
         String loginPassword = scanner.nextLine();
         
-        System.out.println(login.returnLoginStatus(loginUsername, loginPassword));
+        String loginStatus = login.returnLoginStatus(loginUsername, loginPassword);
+        System.out.println(loginStatus);
         
-        user.login(loginUsername, loginPassword);
+        // Only show messaging features if login is successful
+        if (loginStatus.contains("great to see you")) {
+                System.out.println("\nLogin successful! Messaging features loading...");
+            } else {
+                System.out.println("Login failed. Please restart and try again.");
+            }
+        } else {
+            System.out.println("Registration failed. Please restart and try again.");
+        }
     }
-}
+} 
