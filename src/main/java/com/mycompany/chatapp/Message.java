@@ -135,9 +135,28 @@ public class Message {
     }
 
     // Check message length
-    public boolean checkMessageLength() {
-        return messageText.length() <= 250;
+    public String checkMessageLengthMessage() {
+    if (messageText.length() <= 250) {
+        return "Message ready to send.";
+    } else {
+        int excess = messageText.length() - 250;
+        return "Message exceeds 250 characters by " + excess + "; please reduce the size.";
     }
+}
+    
+    // Check message length - returns boolean
+    public boolean checkMessageLength() {
+         return messageText.length() <= 250;
+}
+
+    // Check recipient cell - returns specific messages
+    public String checkRecipientCellMessage(String recipient) {
+    if (recipient.matches("\\+27\\d{9}")) {
+        return "Cell phone number successfully captured.";
+    } else {
+        return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
+    }
+}
 
     // Getters
     public String getMessageID() { return messageID; }
