@@ -34,7 +34,7 @@ public class ChatApp {
         System.out.println("Please enter your cellphone number (e.g. +27876543211)");
         String cellPhone = scanner.nextLine();
         
-        // Create login object and register
+        // Register user
         Login login = new Login(firstName, lastName, username, password, cellPhone);
         String registrationResult = login.registerUser();
         System.out.println(registrationResult);
@@ -57,6 +57,11 @@ public class ChatApp {
         if (loginStatus.contains("great to see you")) {
                 System.out.println("\nWelcome to QuickChat.");
                 
+        // Ask how many messages to send
+                System.out.println("How many messages would you like to send?");
+                int maxMessages = Integer.parseInt(scanner.nextLine());
+                int messageCount = 0;
+                
                 boolean running = true;
                 while (running) {
                     System.out.println("\nPlease choose an option:");
@@ -68,16 +73,64 @@ public class ChatApp {
                     
                     switch (choice) {
                         case "1":
-                            System.out.println("How many messages would you like to send?");
-                            int maxMessages = Integer.parseInt(scanner.nextLine());
-                            int messageCount = 0;
-                            
-                            while (messageCount < maxMessages) {
-                                System.out.println("\nMessage " + (messageCount + 1) + " of " + maxMessages);
-                                System.out.println("Message sending coming soon...");
-                                messageCount++;
+                            if (messageCount >= maxMessages) {
+                                System.out.println("You have reached your message limit of " + maxMessages);
+                                break;
                             }
-                            System.out.println("You have sent all " + maxMessages + " messages!");
+                System.out.println("\nMessage " + (messageCount + 1) + " of " + maxMessages);
+                        
+        // Get recipient
+                System.out.println("Enter recipient cell number (e.g. +27987654321): ");
+                    String recipient = scanner.nextLine();
+
+        // Get message text
+                System.out.println("Enter your message (max 250 characters): ");
+                    String messageText = scanner.nextLine();
+                    
+        // Create message object
+                    Message message = new Message(messageCount + 1, recipient, messageText);
+
+        // Check recipient
+                    if (!message.checkRecipientCell(recipient)) {
+                        System.out.println("Cellphone number incorrectly formatted or does not contain international code");
+                                break;
+                            }
+
+        // Check message length
+                    if (!message.checkMessageLength()) {
+                        System.out.println("Please enter a message of less than 250 characters");
+                                break;
+                            }
+        // Display message details
+                        System.out.println("\nMessage ID: " + message.getMessageID());
+                        System.out.println("Message Hash: " + message.getMessageHash());
+                        System.out.println("Recipient: " + message.getRecipient());
+                        System.out.println("Message: " + message.getMessageText());
+
+        // Send options
+                        System.out.println("\nWhat would you like to do with this message?");
+                        System.out.println("1) Send message");
+                        System.out.println("2) Disregard message");
+                        System.out.println("3) Store message to send later");
+                        System.out.println("4) Store message in JSON file");
+
+                    String messageChoice = scanner.nextLine();
+                        if (messageChoice.equals("4")) {
+                                Message.storeMessage();
+                            } else {
+                                String result = message.sentMessage(messageChoice);
+                                System.out.println(result);
+                                if (messageChoice.equals("1") || messageChoice.equals("3")) {
+                                    messageCount++;
+                                }
+                                if (messageChoice.equals("2")) {
+                                    System.out.println("Enter 0 to confirm delete: ");
+                                    String deleteChoice = scanner.nextLine();
+                                    if (deleteChoice.equals("0")) {
+                                        System.out.println("Message deleted");
+                                    }
+                        }
+                            }
                             break;
                         case "2":
                             System.out.println("Coming soon");
