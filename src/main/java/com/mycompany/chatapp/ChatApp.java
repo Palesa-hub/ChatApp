@@ -68,7 +68,16 @@ public class ChatApp {
                     
                     switch (choice) {
                         case "1":
-                            System.out.println("Sendong messages coming soon...");
+                            System.out.println("How many messages would you like to send?");
+                            int maxMessages = Integer.parseInt(scanner.nextLine());
+                            int messageCount = 0;
+                            
+                            while (messageCount < maxMessages) {
+                                System.out.println("\nMessage " + (messageCount + 1) + " of " + maxMessages);
+                                System.out.println("Message sending coming soon...");
+                                messageCount++;
+                            }
+                            System.out.println("You have sent all " + maxMessages + " messages!");
                             break;
                         case "2":
                             System.out.println("Coming soon");
