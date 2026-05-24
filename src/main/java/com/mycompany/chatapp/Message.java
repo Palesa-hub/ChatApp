@@ -64,7 +64,7 @@ public class Message {
         String[] words = messageText.trim().split(" ");
         String firstWord = words[0];
         String lastWord = words[words.length - 1];
-        String firstTwoID = messageID.substring(0, 2);
+        String firstTwoID = messageID.length() >= 2 ? messageID.substring(0, 2) : messageID;
         return (firstTwoID + ":" + messageNumber + ":" + firstWord + lastWord).toUpperCase();
     }
 
@@ -76,12 +76,12 @@ public class Message {
                 messageReceived = true;
                 totalMessages++;
                 messageList.add(this);
-                return "Message successfully sent";
+                return "Message successfully sent.";
             case "2":
-                return "Press 0 to delete the message";
+                return "Press 0 to delete the message.";
             case "3":
                 messageList.add(this);
-                return "Message successfully stored";
+                return "Message successfully stored.";
             default:
                 return "Invalid option, please try again";
         }

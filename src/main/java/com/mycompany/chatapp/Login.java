@@ -70,7 +70,7 @@ public boolean loginUser(String enteredUsername, String enteredPassword) {
    // Method 6 returns the login status message
 public String returnLoginStatus(String enteredUsername, String enteredPassword) {
    if (loginUser(enteredUsername, enteredPassword)) {
-      return "Welcome " + firstName + ", " + lastName + "  it is great to see you again.";
+      return "Welcome " + firstName + ", " + lastName + " it is great to see you again.";
 } else {
       return "Username or password incorrect, please try again.";
         }
