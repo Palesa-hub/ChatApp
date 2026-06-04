@@ -29,6 +29,13 @@ public class Message {
     // Static list to store all messages
     private static ArrayList<Message> messageList = new ArrayList<>();
     private static int totalMessages = 0;
+    
+    // The 5 required arrays
+    private static ArrayList<String> sentMessages = new ArrayList<>();
+    private static ArrayList<String> disregardedMessages = new ArrayList<>();
+    private static ArrayList<String> storedMessages = new ArrayList<>();
+    private static ArrayList<String> messageHashes = new ArrayList<>();
+    private static ArrayList<String> messageIDs = new ArrayList<>();
 
     // Constructor
     public Message(int messageNumber, String recipient, String messageText) {
@@ -76,11 +83,23 @@ public class Message {
                 messageReceived = true;
                 totalMessages++;
                 messageList.add(this);
+                // Add to sent messages array
+                sentMessages.add(this.messageText);
+                // Add hash and ID to their arrays
+                messageHashes.add(this.messageHash);
+                messageIDs.add(this.messageID);
                 return "Message successfully sent.";
             case "2":
+                // Add to disregarded messages array
+                disregardedMessages.add(this.messageText);
                 return "Press 0 to delete the message.";
             case "3":
                 messageList.add(this);
+                // Add to stored messages array
+                storedMessages.add(this.messageText);
+                // Add hash and ID to their arrays
+                messageHashes.add(this.messageHash);
+                messageIDs.add(this.messageID);
                 return "Message successfully stored.";
             default:
                 return "Invalid option, please try again";
@@ -158,6 +177,51 @@ public class Message {
     }
 }
 
+    // Get sent messages array
+public static ArrayList<String> getSentMessages() {
+    return sentMessages;
+}
+
+// Get disregarded messages array
+public static ArrayList<String> getDisregardedMessages() {
+    return disregardedMessages;
+}
+
+// Get stored messages array
+public static ArrayList<String> getStoredMessages() {
+    return storedMessages;
+}
+
+// Get message hashes array
+public static ArrayList<String> getMessageHashes() {
+    return messageHashes;
+}
+
+// Get message IDs array
+public static ArrayList<String> getMessageIDs() {
+    return messageIDs;
+}
+
+// Load stored messages from JSON file into array
+// Reference: JSON Simple library for Java
+// Source: https://code.google.com/archive/p/json-simple/downloads
+// Date accessed: 22 May 2026
+public static void loadStoredMessagesFromJSON() {
+    try {
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        JSONArray jsonArray = (JSONArray) parser.parse(new java.io.FileReader("messages.json"));
+        for (Object obj : jsonArray) {
+            JSONObject jsonObject = (JSONObject) obj;
+            String message = (String) jsonObject.get("Message");
+            if (!storedMessages.contains(message)) {
+                storedMessages.add(message);
+            }
+        }
+        System.out.println("Stored messages loaded successfully");
+    } catch (Exception e) {
+        System.out.println("No stored messages file found");
+    }
+}
     // Getters
     public String getMessageID() { return messageID; }
     public String getMessageHash() { return messageHash; }
