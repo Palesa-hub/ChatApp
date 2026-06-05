@@ -222,6 +222,93 @@ public static void loadStoredMessagesFromJSON() {
         System.out.println("No stored messages file found");
     }
 }
+
+// Display sender and recipient of all stored messages
+public static String displayStoredMessagesDetails(String sender) {
+    if (sentMessages.isEmpty() && storedMessages.isEmpty()) {
+        return "No stored messages found";
+    }
+    StringBuilder sb = new StringBuilder();
+    sb.append("\n=== Stored Message Details ===\n");
+    for (Message m : messageList) {
+        sb.append("\nSender: ").append(sender)
+          .append("\nRecipient: ").append(m.recipient)
+          .append("\n");
+    }
+    return sb.toString();
+}
+
+// Display longest stored message
+public static String displayLongestMessage() {
+    if (messageList.isEmpty()) {
+        return "No messages found";
+    }
+    Message longest = messageList.get(0);
+    for (Message m : messageList) {
+        if (m.messageText.length() > longest.messageText.length()) {
+            longest = m;
+        }
+    }
+    return "Longest message: " + longest.messageText;
+}
+
+// Search for message by ID
+public static String searchMessageByID(String messageID) {
+    for (Message m : messageList) {
+        if (m.messageID.equals(messageID)) {
+            return "Recipient: " + m.recipient + "\nMessage: " + m.messageText;
+        }
+    }
+    return "Message ID not found";
+}
+
+// Search all messages for a particular recipient
+public static String searchMessagesByRecipient(String recipient) {
+    StringBuilder sb = new StringBuilder();
+    boolean found = false;
+    for (Message m : messageList) {
+        if (m.recipient.equals(recipient)) {
+            sb.append("\nMessage: ").append(m.messageText).append("\n");
+            found = true;
+        }
+    }
+    if (!found) {
+        return "No messages found for recipient: " + recipient;
+    }
+    return sb.toString();
+}
+
+// Delete message using message hash
+public static String deleteMessageByHash(String hash) {
+    for (int i = 0; i < messageList.size(); i++) {
+        if (messageList.get(i).messageHash.equals(hash)) {
+            messageList.remove(i);
+            return "Message successfully deleted";
+        }
+    }
+    return "Message hash not found";
+}
+
+// Display full report of all stored messages
+public static String displayFullReport() {
+    if (messageList.isEmpty()) {
+        return "No messages found";
+    }
+    StringBuilder sb = new StringBuilder();
+    sb.append("\n=== Full Message Report ===\n");
+    for (Message m : messageList) {
+        sb.append("\nMessage ID: ").append(m.messageID)
+          .append("\nMessage Hash: ").append(m.messageHash)
+          .append("\nRecipient: ").append(m.recipient)
+          .append("\nMessage: ").append(m.messageText)
+          .append("\nMessage Sent: ").append(m.messageSent)
+          .append("\nMessage Received: ").append(m.messageReceived)
+          .append("\nMessage Read: ").append(m.messageRead)
+          .append("\n");
+    }
+    return sb.toString();
+}
+
     // Getters
     public String getMessageID() { return messageID; }
     public String getMessageHash() { return messageHash; }

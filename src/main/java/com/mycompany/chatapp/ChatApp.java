@@ -67,7 +67,8 @@ public class ChatApp {
                     System.out.println("\nPlease choose an option:");
                     System.out.println("1. Send messages");
                     System.out.println("2. Show recently sent messages:");
-                    System.out.println("3. Quit");
+                    System.out.println("3. Stored messages");
+                    System.out.println("4. Quit");
                     
                     String choice = scanner.nextLine();
                     
@@ -136,9 +137,56 @@ public class ChatApp {
                             System.out.println("Coming soon");
                             break;
                         case "3":
+                            System.out.println("\n=== Stored Messages Menu ===");
+                            System.out.println("1) Display sender and recipient of all stored messages");
+                            System.out.println("2) Display longest stored message");
+                            System.out.println("3) Search for a message by ID");
+                            System.out.println("4) Search messages by recipient");
+                            System.out.println("5) Delete a message using message hash");
+                            System.out.println("6) Display full message report");
+                            System.out.println("7) Back to main menu");
+
+                    String storedChoice = scanner.nextLine();
+
+                switch (storedChoice) {
+                        case "1":
+                           System.out.println(Message.displayStoredMessagesDetails(firstName));
+                           break;
+                        case "2":
+                           System.out.println(Message.displayLongestMessage());
+                    break;
+                        case "3":
+                           System.out.println("Enter message ID to search: ");
+            String searchID = scanner.nextLine();
+                           System.out.println(Message.searchMessageByID(searchID));
+                    break;
+                        case "4":
+                           System.out.println("Enter recipient number to search: ");
+            String searchRecipient = scanner.nextLine();
+                           System.out.println(Message.searchMessagesByRecipient(searchRecipient));
+                    break;
+                        case "5":
+                           System.out.println("Enter message hash to delete: ");
+            String deleteHash = scanner.nextLine();
+                           System.out.println(Message.deleteMessageByHash(deleteHash));
+                    break;
+                        case "6":
+                           System.out.println(Message.displayFullReport());
+                    break;
+                        case "7":
+                           System.out.println("Returning to main menu...");
+                    break;
+                    default:
+                           System.out.println("Invalid option, please try again");
+            break;
+    }
+            break;
+                        case "4":
+                            System.out.println("\nTotal messages sent: " + Message.returnTotalMessages());
                             System.out.println("Thank you for using QuickChat. Goodbye!");
                             running = false;
                             break;
+                            
                         default:
                             System.out.println("Invalid option, please try again.");
                             break;
