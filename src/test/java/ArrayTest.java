@@ -110,4 +110,75 @@ public class ArrayTest {
         message.sentMessage("1");
         assertFalse(Message.getMessageIDs().isEmpty());
     }
+    
+    // Test 11 - Sent messages array correctly populated
+    @Test
+    public void testSentMessagesArrayPopulated() {
+        Message message1 = new Message(1, "+27834557896", "Did you get the cake?");
+        message1.sentMessage("1");
+        Message message4 = new Message(4, "+27834557896", "It is dinner time!");
+        message4.sentMessage("1");
+        ArrayList<String> sent = Message.getSentMessages();
+        assertTrue(sent.contains("Did you get the cake?") && 
+        sent.contains("It is dinner time!"));
+}
+
+    // Test 12 - Display longest message
+    @Test
+    public void testDisplayLongestMessage() {
+        Message message1 = new Message(1, "+27834557896", "Did you get the cake?");
+        message1.sentMessage("1");
+        Message message2 = new Message(2, "+27838884567", "Where are you? You are late! I have asked you to be on time.");
+        message2.sentMessage("3");
+        Message message3 = new Message(3, "+27834484567", "Yohoooo, I am at your gate.");
+        message3.sentMessage("2");
+        Message message4 = new Message(4, "+27834557896", "It is dinner time!");
+        message4.sentMessage("1");
+        assertEquals("Longest message: Where are you? You are late! I have asked you to be on time.", 
+        Message.displayLongestMessage());
+}
+
+    // Test 13 - Search for message by ID (message 4 invalid recipient)
+    @Test
+    public void testSearchMessageByRecipient() {
+        Message message4 = new Message(4, "0838884567", "It is dinner time!");
+        message4.sentMessage("1");
+        ArrayList<String> sent = Message.getSentMessages();
+        assertTrue(sent.contains("It is dinner time!"));
+}
+
+    // Test 14 - Search all messages for a particular recipient
+    @Test
+    public void testSearchAllMessagesForRecipient() {
+        Message message2 = new Message(2, "+27838884567", "Where are you? You are late! I have asked you to be on time.");
+        message2.sentMessage("3");
+        Message message5 = new Message(5, "+27838884567", "Ok, I am leaving without you.");
+        message5.sentMessage("3");
+        String result = Message.searchMessagesByRecipient("+27838884567");
+        assertTrue(result.contains("Where are you? You are late! I have asked you to be on time.") && 
+        result.contains("Ok, I am leaving without you."));
+}
+
+    // Test 15 - Delete message using message hash
+    @Test
+    public void testDeleteMessageByHash() {
+        Message message2 = new Message(2, "+27838884567", "Where are you? You are late! I have asked you to be on time.");
+        message2.sentMessage("3");
+        String hash = message2.getMessageHash();
+        assertEquals("Message successfully deleted", 
+        Message.deleteMessageByHash(hash));
+}
+
+    // Test 16 - Display report shows all message details
+    @Test
+    public void testDisplayReport() {
+        Message message1 = new Message(1, "+27834557896", "Did you get the cake?");
+        message1.sentMessage("1");
+        Message message2 = new Message(2, "+27838884567", "Where are you? You are late! I have asked you to be on time.");
+        message2.sentMessage("3");
+        String report = Message.displayFullReport();
+        assertTrue(report.contains("Message Hash") && 
+        report.contains("Recipient") && 
+        report.contains("Message"));
+}
 }
